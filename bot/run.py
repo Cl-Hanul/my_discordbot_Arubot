@@ -2,8 +2,12 @@ import discord
 from discord.ext import commands
 from cogs import hello
 
+from os import chdir
+from json import loads, dumps
+
 with open("BOTTOKEN","r") as file:
     TOKEN = file.read()
+
 intents = discord.Intents.all()
 command_prefix = "~"
 
@@ -21,6 +25,9 @@ async def on_ready():
     await bot.change_presence(activity=activity,status=discord.Status.online)
     for i in cog:
         await bot.add_cog(i)
+    
+    with open("bot\\botdata\\coins.json","r") as file:
+        coins = loads(file.read())
 
 
 bot.run(TOKEN)
